@@ -1,4 +1,4 @@
-﻿namespace CoffeeShop;
+﻿namespace food;
 
 /// <summary>
 /// Interaction logic for Login.xaml
