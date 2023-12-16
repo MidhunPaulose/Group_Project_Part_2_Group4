@@ -1,0 +1,41 @@
+﻿<Window x:Class="CoffeeShop.UserWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Height="300"
+        Width="400">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock HorizontalAlignment="Center" Text="First Name" VerticalAlignment="Center"/>
+        <TextBox Grid.Column="1" Height="20" Name="FirstNameTextBox"/>
+        <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="Last Name" VerticalAlignment="Center"/>
+        <TextBox Grid.Column="1" Grid.Row="1" Height="20" Name="LastNameTextBox"/>
+        <TextBlock Grid.Row="2" HorizontalAlignment="Center" Text="Username" VerticalAlignment="Center"/>
+        <TextBox Grid.Column="1" Grid.Row="2" Height="20" Name="UsernameTextBox"/>
+        <TextBlock Grid.Row="3" HorizontalAlignment="Center" Text="Password" VerticalAlignment="Center"/>
+        <PasswordBox Grid.Column="1" Grid.Row="3" Height="20" Name="PasswordPasswordBox"/>
+        <TextBlock Grid.Row="4" HorizontalAlignment="Center" Text="Role" VerticalAlignment="Center"/>
+        <StackPanel Grid.Column="1" Grid.Row="4" Height="20" Orientation="Horizontal">
+            <RadioButton Content="Employee" Margin="0 0 20 0" Name="EmployeeRadioButton"/>
+            <RadioButton Content="Owner" Name="OwnerRadioButton"/>
+        </StackPanel>
+        <TextBlock Grid.Row="5" HorizontalAlignment="Center" Text="Contact Info" VerticalAlignment="Center"/>
+        <TextBox Grid.Column="1" Grid.Row="5" Height="20" Name="ContactInfoTextBox"/>
+        <Button Click="SaveButton_Click" Content="Save" Grid.Row="6" Margin="5" Name="SaveButton"/>
+        <Button Click="DeleteButton_Click" Content="Delete" Grid.Column="1" Grid.Row="6" Margin="5" Name="DeleteButton"/>
+    </Grid>
+</Window>

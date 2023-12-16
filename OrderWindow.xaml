@@ -1,0 +1,43 @@
+﻿<Window x:Class="CoffeeShop.OrderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Height="300"
+        Width="400">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="120"/>
+            <RowDefinition Height="35"/>
+        </Grid.RowDefinitions>
+        <TextBlock HorizontalAlignment="Center" Text="Date" VerticalAlignment="Center"/>
+        <TextBox Grid.Column="1" Height="20" IsReadOnly="True" Name="DateTextBox"/>
+        <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="Payment Method" VerticalAlignment="Center"/>
+        <TextBox Grid.Column="1" Grid.Row="1" Height="20" IsReadOnly="True" Name="MethodTextBox"/>
+        <TextBlock Grid.Row="2" HorizontalAlignment="Center" Text="Total Price" VerticalAlignment="Center"/>
+        <TextBox Grid.Column="1" Grid.Row="2" Height="20" IsReadOnly="True" Name="TotalPriceTextBox"/>
+        <TextBlock Grid.Row="3" HorizontalAlignment="Center" Text="Customer" VerticalAlignment="Center"/>
+        <TextBox Grid.Column="1" Grid.Row="3" Height="20" IsReadOnly="True" Name="CustomerTextBox"/>
+        <StackPanel Grid.ColumnSpan="2" Grid.Row="4">
+            <TextBlock Text="Items"/>
+            <DataGrid AutoGenerateColumns="False" Height="100" IsReadOnly="True" Name="ItemsDataGrid">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Product.Name}" Header="Product"/>
+                    <DataGridTextColumn Binding="{Binding Quantity}" Header="Quantity"/>
+                    <DataGridTextColumn Binding="{Binding Subtotal, StringFormat=C}" Header="Subtotal"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <Button Click="ConfirmButton_Click" Content="Confirm" Grid.Row="5" Margin="5" Name="ConfirmButton"/>
+        <Button Click="CancelButton_Click" Content="Cancel" Grid.Column="1" Grid.Row="5" Margin="5" Name="CancelButton"/>
+    </Grid>
+</Window>

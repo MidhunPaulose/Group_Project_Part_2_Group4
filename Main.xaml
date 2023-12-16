@@ -1,0 +1,146 @@
+﻿<Window x:Class="CoffeeShop.Main"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Height="600"
+        ResizeMode="NoResize"
+        Title="Coffe Shop"
+        Width="800"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="Images/Background.jpg"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5*" />
+        </Grid.ColumnDefinitions>
+        <Menu FontSize="20" FontWeight="Bold">
+            <Menu.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel Orientation="Vertical" />
+                </ItemsPanelTemplate>
+            </Menu.ItemsPanel>
+            <MenuItem Click="HomepageMenuItem_Click" Header="Homepage" Name="HomepageMenuItem" />
+            <MenuItem Click="CustomerMenuItem_Click" Header="Customers" Name="CustomerMenuItem" />
+            <MenuItem Click="ProductMenuItem_Click" Header="Products" Name="ProductMenuItem" />
+            <MenuItem Click="OrderMenuItem_Click" Header="Orders" Name="OrderMenuItem" />
+            <MenuItem Click="UserMenuItem_Click" Header="Users" Name="UserMenuItem" />
+        </Menu>
+        <Grid Grid.Column="1" Margin="10" Name="HomepageGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Customer:" VerticalAlignment="Center"/>
+            <ComboBox Grid.Column="1" Name="CustomerComboBox">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding FullName}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBlock Grid.Column="2" HorizontalAlignment="Center" Text="Payment Method:" VerticalAlignment="Center"/>
+            <StackPanel Grid.Column="3" Height="20" Orientation="Horizontal">
+                <RadioButton Content="Cash" Margin="0 0 10 0" Name="CashRadioButton" VerticalAlignment="Center"/>
+                <RadioButton Content="Credit/Debit Card" IsChecked="True" Name="CardRadioButton" VerticalAlignment="Center"/>
+            </StackPanel>
+            <ScrollViewer Grid.ColumnSpan="4" Grid.Row="1">
+                <ItemsControl Name="OrderItemItemsControl">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center">
+                                <Image Source="{Binding Product.ImagePath}" Width="140"/>
+                                <TextBlock FontSize="15" FontWeight="Bold" HorizontalAlignment="Center" Text="{Binding Product.Name}"/>
+                                <TextBlock Text="Quantity"/>
+                                <TextBox Text="{Binding Quantity}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+            <Button Click="OrderAddButton_Click" Content="Place Order" Grid.Column="4" Grid.RowSpan="2" Height="100" Name="OrderAddButton"/>
+        </Grid>
+        <Grid Grid.Column="1" Margin="10" Name="CustomerGrid" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock FontSize="30" FontWeight="Bold" Text="Customers" />
+            <Button Click="CustomerAddButton_Click" Content="Add" Grid.Column="1" Height="30" Name="CustomerAddButton" Width="100"/>
+            <DataGrid Grid.ColumnSpan="2" Grid.Row="1" IsReadOnly="True" Name="CustomerDataGrid" MouseUp="CustomerDataGrid_MouseUp" />
+        </Grid>
+        <Grid Grid.Column="1" Margin="10" Name="ProductGrid" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock FontSize="30" FontWeight="Bold" Text="Products" />
+            <Button Click="ProductAddButton_Click" Content="Add" Grid.Column="1" Height="30" Name="ProductAddButton" Width="100"/>
+            <DataGrid AutoGenerateColumns="False" Grid.ColumnSpan="2" Grid.Row="1" IsReadOnly="True" Name="ProductDataGrid" MouseUp="ProductDataGrid_MouseUp">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Name}" Header="Name"/>
+                    <DataGridTextColumn Binding="{Binding Description}" Header="Description"/>
+                    <DataGridTextColumn Binding="{Binding Price, StringFormat=C}" Header="Price"/>
+                    <DataGridTextColumn Binding="{Binding ImageFilename}" Header="Filename"/>
+                    <DataGridTextColumn Binding="{Binding StockLevel}" Header="Stock"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Grid Grid.Column="1" Margin="10" Name="OrderGrid" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock FontSize="30" FontWeight="Bold" Text="Orders" />
+            <DataGrid AutoGenerateColumns="False" Grid.ColumnSpan="2" Grid.Row="1" IsReadOnly="True" Name="OrderDataGrid">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Date}" Header="Date"/>
+                    <DataGridTextColumn Binding="{Binding TotalPrice, StringFormat=C}" Header="Total Price"/>
+                    <DataGridTextColumn Binding="{Binding Method}" Header="Method"/>
+                    <DataGridTextColumn Binding="{Binding Customer.FullName}" Header="Customer"/>
+                    <DataGridTextColumn Binding="{Binding ItemNames}" Header="Items"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Grid Grid.Column="1" Margin="10" Name="UserGrid" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock FontSize="30" FontWeight="Bold" Text="Users" />
+            <Button Click="UserAddButton_Click" Content="Add" Grid.Column="1" Height="30" Name="UserAddButton" Width="100"/>
+            <DataGrid Grid.ColumnSpan="2" Grid.Row="1" IsReadOnly="True" Name="UserDataGrid" MouseUp="UserDataGrid_MouseUp" />
+        </Grid>
+    </Grid>
+</Window>
