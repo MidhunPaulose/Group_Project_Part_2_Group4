@@ -1,4 +1,4 @@
-﻿namespace CoffeeShop;
+﻿namespace food;
 
 public partial class Main : Window
 {
